@@ -1,0 +1,821 @@
+openapi: 3.0.0
+paths:
+  /users/me:
+    get:
+      operationId: UsersController_getMe
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    patch:
+      operationId: UsersController_patchMe
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserDto"
+      responses:
+        "200":
+          description: ""
+  "/users/{id}":
+    get:
+      operationId: UsersController_getId
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /auth/register:
+    post:
+      operationId: AuthController_register
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterDto"
+      responses:
+        "201":
+          description: ""
+  /auth/login:
+    post:
+      operationId: AuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginDto"
+      responses:
+        "201":
+          description: ""
+  /auth/logout:
+    post:
+      operationId: AuthController_logout
+      parameters: []
+      responses:
+        "201":
+          description: ""
+  /files:
+    post:
+      operationId: FilesController_post
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/FilesUploadDto"
+      responses:
+        "201":
+          description: ""
+  /tools:
+    post:
+      operationId: ToolsController_post
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateToolDto"
+      responses:
+        "201":
+          description: ""
+    get:
+      operationId: ToolsController_get
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: category
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: user
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: zipcode
+          required: false
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedTool"
+  /tools/me:
+    get:
+      operationId: ToolsController_getMe
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: category
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: user
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: zipcode
+          required: false
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedTool"
+  "/tools/{id}":
+    get:
+      operationId: ToolsController_getId
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tool"
+    patch:
+      operationId: ToolsController_patchId
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateToolDto"
+      responses:
+        "200":
+          description: ""
+    delete:
+      operationId: ToolsController_deleteId
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+  /categories:
+    post:
+      operationId: CategoriesController_post
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCategoryDto"
+      responses:
+        "201":
+          description: ""
+    get:
+      operationId: CategoriesController_get
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedCategory"
+  "/categories/{id}":
+    patch:
+      operationId: CategoriesController_patch
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCategoryDto"
+      responses:
+        "200":
+          description: ""
+    delete:
+      operationId: CategoriesController_delete
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+  /rental:
+    post:
+      operationId: RentalController_post
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRentalDto"
+      responses:
+        "201":
+          description: ""
+    get:
+      operationId: RentalController_getOwn
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: type
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedRental"
+  "/rental/{id}":
+    get:
+      operationId: RentalController_get
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Rental"
+    patch:
+      operationId: RentalController_patch
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateRentalDto"
+      responses:
+        "200":
+          description: ""
+  /demands:
+    post:
+      operationId: DemandsController_post
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDemandDto"
+      responses:
+        "201":
+          description: ""
+    get:
+      operationId: DemandsController_getAll
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: category
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: creator
+          required: false
+          in: query
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedDemand"
+  "/demands/{id}":
+    get:
+      operationId: DemandsController_getId
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demand"
+info:
+  title: Toolly
+  description: The toolly API description
+  version: "1.0"
+  contact: {}
+tags:
+  - name: cats
+    description: ""
+servers: []
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        email:
+          type: string
+        zipcode:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        created:
+          format: date-time
+          type: string
+        updated:
+          format: date-time
+          type: string
+        profilePhoto:
+          $ref: "#/components/schemas/File"
+        role:
+          type: string
+      required:
+        - id
+        - name
+        - email
+        - zipcode
+        - address
+        - latitude
+        - longitude
+        - created
+        - updated
+        - role
+    File:
+      type: object
+      properties:
+        url:
+          type: string
+        name:
+          type: string
+        mimeType:
+          type: string
+        createdBy:
+          $ref: "#/components/schemas/User"
+        created:
+          format: date-time
+          type: string
+      required:
+        - url
+        - name
+        - mimeType
+        - created
+    UpdateUserDto:
+      type: object
+      properties:
+        name:
+          type: string
+        zipcode:
+          type: string
+        address:
+          type: string
+        profilePhotoUrl:
+          type: string
+    RegisterDto:
+      type: object
+      properties: {}
+    LoginDto:
+      type: object
+      properties: {}
+    FilesUploadDto:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+      required:
+        - files
+    CreateToolDto:
+      type: object
+      properties:
+        name:
+          type: string
+        introduction:
+          type: string
+        photoUrls:
+          type: array
+          items:
+            type: string
+        categoryIds:
+          type: array
+          items:
+            type: number
+      required:
+        - name
+        - introduction
+        - photoUrls
+        - categoryIds
+    Category:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        photos:
+          type: array
+          items:
+            $ref: "#/components/schemas/File"
+        tools:
+          type: array
+          items:
+            $ref: "#/components/schemas/Tool"
+        createdBy:
+          $ref: "#/components/schemas/User"
+        created:
+          format: date-time
+          type: string
+        updated:
+          format: date-time
+          type: string
+        group:
+          type: string
+      required:
+        - id
+        - name
+        - createdBy
+        - created
+        - updated
+        - group
+    Tool:
+      type: object
+      properties:
+        id:
+          type: number
+        user:
+          $ref: "#/components/schemas/User"
+        name:
+          type: string
+        introduction:
+          type: string
+        photos:
+          type: array
+          items:
+            $ref: "#/components/schemas/File"
+        created:
+          format: date-time
+          type: string
+        updated:
+          format: date-time
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+      required:
+        - id
+        - name
+        - introduction
+        - created
+        - updated
+    PaginationMeta:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        itemCount:
+          type: number
+        itemsPerPage:
+          type: number
+        totalPages:
+          type: number
+        currentPage:
+          type: number
+      required:
+        - totalItems
+        - itemCount
+        - itemsPerPage
+        - totalPages
+        - currentPage
+    PaginatedTool:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Tool"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - items
+        - meta
+    UpdateToolDto:
+      type: object
+      properties:
+        name:
+          type: string
+        introduction:
+          type: string
+        photoUrls:
+          type: array
+          items:
+            type: string
+        categoryIds:
+          type: array
+          items:
+            type: number
+    CreateCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+        photoUrls:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - photoUrls
+    UpdateCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+        photoUrls:
+          type: array
+          items:
+            type: string
+    PaginatedCategory:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - items
+        - meta
+    CreateRentalDto:
+      type: object
+      properties:
+        note:
+          type: string
+        tool:
+          type: number
+        lender:
+          type: number
+        renter:
+          type: number
+        expectedDelivery:
+          format: date-time
+          type: string
+        expectedReturn:
+          format: date-time
+          type: string
+      required:
+        - note
+        - tool
+        - lender
+        - renter
+        - expectedDelivery
+        - expectedReturn
+    Rental:
+      type: object
+      properties:
+        id:
+          type: number
+        note:
+          type: string
+        status:
+          type: string
+        tool:
+          $ref: "#/components/schemas/Tool"
+        initiator:
+          $ref: "#/components/schemas/User"
+        lender:
+          $ref: "#/components/schemas/User"
+        renter:
+          $ref: "#/components/schemas/User"
+        created:
+          format: date-time
+          type: string
+        updated:
+          format: date-time
+          type: string
+        expectedDelivery:
+          format: date-time
+          type: string
+        actualDelivery:
+          format: date-time
+          type: string
+        expectedReturn:
+          format: date-time
+          type: string
+        actualReturn:
+          format: date-time
+          type: string
+      required:
+        - id
+        - note
+        - status
+        - tool
+        - initiator
+        - lender
+        - renter
+        - created
+        - updated
+    PaginatedRental:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Rental"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - items
+        - meta
+    UpdateRentalDto:
+      type: object
+      properties:
+        note:
+          type: string
+        tool:
+          type: number
+        status:
+          type: string
+        expectedDelivery:
+          format: date-time
+          type: string
+        actualDelivery:
+          format: date-time
+          type: string
+        expectedReturn:
+          format: date-time
+          type: string
+        actualReturn:
+          format: date-time
+          type: string
+    CreateDemandDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        categoryIds:
+          type: array
+          items:
+            type: number
+      required:
+        - title
+        - description
+        - categoryIds
+    Demand:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        description:
+          type: string
+        created:
+          format: date-time
+          type: string
+        updated:
+          format: date-time
+          type: string
+        creator:
+          $ref: "#/components/schemas/User"
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+      required:
+        - id
+        - title
+        - description
+        - created
+        - updated
+        - creator
+    PaginatedDemand:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Demand"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - items
+        - meta
